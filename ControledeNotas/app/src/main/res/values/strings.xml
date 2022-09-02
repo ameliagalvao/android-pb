@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Controle de Notas</string>
+    <string name="add_student">Add student</string>
+    <string name="hint_word">Word...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Student not saved because it is empty.</string>
+</resources>
