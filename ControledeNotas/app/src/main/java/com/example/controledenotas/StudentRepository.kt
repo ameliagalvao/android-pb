@@ -11,4 +11,10 @@ class StudentRepository(private val studentDao: StudentDAO) {
     suspend fun insert(student: Student) {
         studentDao.insert(student)
     }
+    suspend fun delete(student: Student){
+        studentDao.delete(student)
+    }
+    suspend fun findById(id: Int){
+        studentDao.findById(id)
+    }
 }

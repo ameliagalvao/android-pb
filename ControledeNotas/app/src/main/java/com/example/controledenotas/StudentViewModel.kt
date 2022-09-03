@@ -9,6 +9,12 @@ class StudentViewModel(private val repository: StudentRepository) : ViewModel() 
     fun insert(student: Student) = viewModelScope.launch {
         repository.insert(student)
     }
+    fun delete(student: Student) = viewModelScope.launch {
+        repository.delete(student)
+    }
+    fun findById(id: Int) = viewModelScope.launch {
+        repository.findById(id)
+    }
 }
 
 class StudentViewModelFactory(private val repository: StudentRepository) : ViewModelProvider.Factory {
