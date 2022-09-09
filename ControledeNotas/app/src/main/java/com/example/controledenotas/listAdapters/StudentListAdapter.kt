@@ -1,17 +1,21 @@
-package com.example.controledenotas
+package com.example.controledenotas.listAdapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.controledenotas.R
+import com.example.controledenotas.entities.Student
+import com.example.controledenotas.viewModels.StudentViewModel
 
-class StudentListAdapter(val context: Context, val studentViewModel: StudentViewModel) : ListAdapter<Student, StudentListAdapter.StudentViewHolder>(StudentsComparator()) {
+class StudentListAdapter(val context: Context, val studentViewModel: StudentViewModel) : ListAdapter<Student, StudentListAdapter.StudentViewHolder>(
+    StudentsComparator()
+) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {

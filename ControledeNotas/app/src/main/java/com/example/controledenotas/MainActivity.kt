@@ -1,57 +1,36 @@
 package com.example.controledenotas
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.Button
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.controledenotas.listAdapters.StudentClassListAdapter
+import com.example.controledenotas.listAdapters.StudentListAdapter
+import com.example.controledenotas.viewModels.StudentClassViewModel
+import com.example.controledenotas.viewModels.StudentClassViewModelFactory
+import com.example.controledenotas.viewModels.StudentViewModel
+import com.example.controledenotas.viewModels.StudentViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var adapter:StudentListAdapter
-    private val newStudentActivityRequestCode = 1
-    private val studentViewModel: StudentViewModel by viewModels {
-        StudentViewModelFactory((application as StudentsApplication).repository)
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        adapter = StudentListAdapter(this.baseContext, studentViewModel)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, AddStudentActivity::class.java)
-            startActivityForResult(intent, newStudentActivityRequestCode)
+        val studentBtn = findViewById<Button>(R.id.studentsBtn)
+        studentBtn.setOnClickListener {
+            val intent = Intent(this@MainActivity, StudentListActivity::class.java)
+            startActivity(intent)
         }
 
-        studentViewModel.allStudents.observe(this) { students ->
-            students?.let{adapter.submitList((it))}
-        }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == newStudentActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            val student = data?.getSerializableExtra(AddStudentActivity.EXTRA_REPLY) as Student
-            studentViewModel.insert(student)
-        } else {
-            Toast.makeText(
-                applicationContext,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG).show()
+        val classroomsBtn = findViewById<Button>(R.id.classroomsBtn)
+        classroomsBtn.setOnClickListener {
+            val intent = Intent(this@MainActivity, StudentClassroomsListActivity::class.java)
+            startActivity(intent)
         }
     }
 }
