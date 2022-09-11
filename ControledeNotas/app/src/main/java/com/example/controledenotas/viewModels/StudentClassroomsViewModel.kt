@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 
 class StudentClassroomsViewModel(private val repository: AppRepository) : ViewModel() {
 
-    var classrooms = repository.getAllClassrooms
     val allClassrooms: LiveData<List<StudentClassrooms>> = repository.getAllClassrooms.asLiveData()
 
     fun insert(classroom: StudentClassrooms) = viewModelScope.launch {
@@ -16,8 +15,8 @@ class StudentClassroomsViewModel(private val repository: AppRepository) : ViewMo
     fun delete(classroom: StudentClassrooms) = viewModelScope.launch {
         repository.deleteClassroom(classroom)
     }
-    fun findById(id: Int) = viewModelScope.launch {
-        repository.findClassroomById(id)
+    fun getAllClassrooms(): List<StudentClassrooms>{
+        return repository.getAllClassroomsSync
     }
 }
 

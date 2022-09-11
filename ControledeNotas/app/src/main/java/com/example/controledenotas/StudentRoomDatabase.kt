@@ -45,7 +45,7 @@ abstract class StudentRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     StudentRoomDatabase::class.java,
                     "student_database"
-                )
+                ).allowMainThreadQueries()
                     .addMigrations(migration_1_2)
                 .addCallback(StudentDatabaseCallback(scope))
                 .build()

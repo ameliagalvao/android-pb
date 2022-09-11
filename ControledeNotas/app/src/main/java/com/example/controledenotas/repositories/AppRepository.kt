@@ -10,6 +10,7 @@ class AppRepository(private val appDao: AppDAO) {
 
     val allStudents: Flow<List<Student>> = appDao.getAllStudents()
     val getAllClassrooms: Flow<List<StudentClassrooms>> = appDao.getAllClassrooms()
+    var getAllClassroomsSync: List<StudentClassrooms> = appDao.getAllClassroomsSync()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

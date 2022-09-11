@@ -38,7 +38,7 @@ class AddStudentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_student)
 
         // As turmas chegam aqui como flow e não consigo formar um array a partir delas pra entrar como último parâmetro do ArrayAdapter
-        var classes = arrayOf(studentClassroomsViewModel.classrooms)
+        var classes = studentClassroomsViewModel.getAllClassrooms().map{it.name}.toTypedArray()
         var classroomsSpinner = findViewById<Spinner>(R.id.classroomsSpinner)
         classroomsSpinner.adapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, classes)
 

@@ -14,6 +14,9 @@ interface AppDAO {
     @Query("SELECT * FROM classrooms_table ORDER BY name ASC")
     fun getAllClassrooms(): Flow<List<StudentClassrooms>>
 
+    @Query("SELECT * FROM classrooms_table ORDER BY name ASC")
+    fun getAllClassroomsSync(): List<StudentClassrooms>
+
     @Query("SELECT * FROM student_table WHERE student_id = :id")
     suspend fun findById(id: Int) : Student
 
