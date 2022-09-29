@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+    id "kotlin-parcelize"
 }
 
 android {
@@ -16,8 +18,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
+    buildFeatures{
+        viewBinding = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -62,11 +68,31 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
 
-    // Testing
-    testImplementation "junit:junit:$rootProject.junitVersion"
-    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
+    // +-----------------------------------------------------------------+
+    // | Testing deps                                                    |
+    // +-----------------------------------------------------------------+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation "androidx.room:room-testing:2.3.0"
+
+    // para testar viewModel e LiveData na pasta "test"
+    testImplementation "androidx.test:core-ktx:1.4.1-alpha03"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.robolectric:robolectric:4.5.1"
+    testImplementation "androidx.test.ext:junit:1.1.3"
+
+    // para testar viewModel e LiveData na pasta "androidTest"
+    androidTestImplementation "androidx.test:core-ktx:1.4.1-alpha03"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation 'androidx.test:runner:1.4.1-alpha03'
+
+    // +-----------------------------------------------------------------+
+    // | Dependências para testes simulados com mockito                  |
+    // +-----------------------------------------------------------------+
+    androidTestImplementation "junit:junit:4.13.2"
+    androidTestImplementation "org.mockito:mockito-core:2.28.2"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.28.1"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
+
 }
