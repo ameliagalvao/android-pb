@@ -6,7 +6,7 @@ import com.example.controledenotas.entities.Student
 import com.example.controledenotas.entities.StudentClassrooms
 import kotlinx.coroutines.flow.Flow
 
-class AppRepository(private val appDao: AppDAO) {
+class AppRepository(private val appDao: AppDAO) : Repository {
 
     val allStudents: Flow<List<Student>> = appDao.getAllStudents()
     val getAllClassrooms: Flow<List<StudentClassrooms>> = appDao.getAllClassrooms()
@@ -14,13 +14,19 @@ class AppRepository(private val appDao: AppDAO) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(student: Student) {
+
+    override suspend fun insert(student: Student) {
         appDao.insertStudent(student)
     }
-    suspend fun delete(student: Student){
+
+    override fun observeStudents(): Flow<List<Student>> {
+        return appDao.getAllStudents()
+    }
+
+    override suspend fun delete(student: Student){
         appDao.deleteStudent(student)
     }
-    suspend fun findStudentById(id: Int){
+    override suspend fun findStudentById(id: Int){
         appDao.findById(id)
     }
 
